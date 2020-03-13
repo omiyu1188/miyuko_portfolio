@@ -1,9 +1,11 @@
 <?php
   require_once "database.php";
   class Word extends Database{
-    public function createWord($name,$meaning,$eexample,$parts_of_speech,$login_id,$tag_id){
-      $eexample=mysql_real_escape_string($example);
-      $sql="INSERT INTO words(word_name,meaning,example,parts_of_speech,login_id,tag_id)VALUES('$name','$meaning','$eexample','$parts_of_speech','$login_id','$tag_id')";
+    public function createWord($name,$meaning,$example,$parts_of_speech,$login_id,$tag_id){
+      $example=$this->conn->real_escape_string($example);
+      $sql="INSERT INTO words(word_name,meaning,example,parts_of_speech,login_id,tag_id)VALUES('$name','$meaning','$example','$parts_of_speech','$login_id','$tag_id')";
+      // echo $sql;
+
       $result=$this->conn->query($sql);
 
       // echo $sql;
@@ -41,6 +43,7 @@
     }
 
     public function editWord($word_id,$new_name,$new_meaning,$new_example,$new_parts_of_speech,$login_id,$new_tag_id){
+      $new_example=$this->conn->real_escape_string($new_example);
       $sql = "UPDATE words
               INNER JOIN tags ON words.tag_id=tags.id 
               SET words.word_name='$new_name',

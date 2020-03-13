@@ -1,5 +1,14 @@
 <?php
-  include "../tagAction.php";
+include "../todoAction.php";
+
+$todo_id=$_GET["id"];
+$login_id=$_SESSION["login_id"];
+$todo_detail = $todo->getSpecificTodo($todo_id,$login_id);
+// include "../userAction.php";
+// $id=$_SESSION["id"];
+// $row=getOneUser($id);
+// $login_id=$_SESSION["login_id"];
+
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -7,7 +16,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Tags</title>
+  <title>ToDo List</title>
   <meta name="description" content="A free and modern UI toolkit for web makers based on the popular Bootstrap 4 framework.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -17,64 +26,67 @@
 </head>
 <body>
 
-  <div class="container">
-    <div class="container">
-
-    </div>
-    <div class="row mt-5">
-      <div class="col-6">
-        <table class="table table-striped table-bordered">
-          <thead class="bg-dark text-white">
-            <th>No.</th>
-            <th>Name</th>
-            <th></th>
-          </thead>
-          <tbody>
-            <?php
-              $taglist=$tag->getTags();
-              foreach($taglist as $tag){
-                $tagID=$tag["id"];
+  <div class="container-fluid mt-5 w-50">
+    <div class="row">
+      <div class="col-12">
+  <!-- <div class="card mx-auto border border-0 mt-5"> -->
+    <!-- <div class="card-body"> -->
+    <?php
                 
-                echo "
-                <tr>
-                <td>".$tagID."</td>
-                <td>".$tag['tag_name']."</td>
-                <td>
-                <form method='post' style='display:inline-block;'>
-                <a href='tagEdit.php?id=$tagID' type='submit' role='button' name='editTag' class='btn btn-outline-warning mr-3' type='submit'>Edit</a>
-                </form>
-                <a href='tagDelete.php?id=$tagID' role='button' name='delete' class='btn btn-outline-danger'>Delete</a></td>
-                </tr>
-                ";
-              }
-              ?>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-6">
-        <div class="card mx-auto border border-0">
-          <div class="card-header bg-white text-dark border-0">
-            <h2 class="text-center pt-5">
-              ADD TAGS
-            </h2>
-          </div>
-          <div class="card-body">
+                // echo $id;
+                // foreach($tag_detail as $detail){
+                  echo '
                   <form action="" method="post">
+                  <label for="">Task</label>
                   <div class="form-row">
-                    <div class="form-group col-md-12 mt-3">
-                      <input type="text" class="p-3 form-control" placeholder="TYPE NEW TAG" name="name" required>
+                    <div class="form-group col-md-10">
+                      <input type="text" class="form-control" placeholder="'.$todo_detail["todo_name"].'" name="new_name">
                     </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-12 mt-3">
-                      <button type="submit" class="btn btn-outline-danger p-3 form-control"  name="addTag" required>ADD NEW TAG</button>
+  
+                    <div class="form-group col-md-2">
+                      <input type="hidden" name="todo_id" value="'.$todo_detail["todo_id"].'">
+                      <input type="hidden" name="old_name" value="'.$todo_detail["todo_name"].'">
+                      <input type="submit" class="btn btn-outline-success  form-control" name="updateTodo" value="SAVE">
                     </div>
                   </div>
                   </form>
-          </div>
-        </div>
+                 ';
+                // }
+            ?>
+    <!-- </div> -->
+  <!-- </div> -->
       </div>
-    </div>
+      </div>
+  
+         
+          <div class="row">
+    <div class="col-12">
+    <table class="table table-hover  mx-auto my-5 ">
+      <!-- <thead class=""> -->
+        <th>No.</th>
+        <th>Task</th>
+        <th></th>
+      <!-- </thead> -->
+      <tbody>
+        <?php
+          $login_id=$_SESSION["login_id"];
+          $todolist=$todo->getTodo($login_id);
+          foreach($todolist as $todo){
+            $todoID=$todo["todo_id"];
+            echo "
+              <tr>
+                <td>".$todo['todo_id']."</td>
+                <td>".$todo['todo_name']."</td>
+                <td><a href='todoDelete.php?id=$todoID' role='button' class='btn text-white' style='background-color:purple;'>"."Delete Task"."</a>"."</td>
+              </tr>
+            ";
+          }
+        ?>
+      </tbody>
+    </table>
+        </div>
+        </div>
+
   </div>
 
   <!-- JavaScript -->
