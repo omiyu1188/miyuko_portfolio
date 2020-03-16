@@ -40,15 +40,124 @@
     <?php
       include "../postAction.php";
 
-      $login_id=$_SESSION["login_id"];
-      $postlist=$post->getPosts($login_id);
-      foreach($postlist as $post){
-        $post_id=$post["post_id"];
-        echo "<div class='card mt-5'><div class='card-body'>".
-        $post['subject_name'].": ".
-        $post['time_hour']."h".$post['time_minute']."min"
-        ."</div></div>"
-        ;
+      $login_id = $_SESSION["login_id"];
+      $datelist = $post->getDates($login_id);
+      $postlist = $post->getPosts($login_id);
+      
+
+      // print_r($datelist);
+
+      foreach($datelist as $dates){
+        $post_count = $dates['post_count'];
+        $date = $dates['date'];
+
+        // echo "<br>".$post_count."=".$date;
+
+      ?>
+      <!-- START OF CARD -->
+      <div class="card mt-4">
+      <div class="card-header bg-white">
+          <h5 class="text-right"><?php echo $date;?></h5>
+      </div>
+      <div class="card-body">
+      <?php
+
+        for($i = 0; $i < $post_count; $i++){
+            $post_details = $post->getDatedPosts($login_id, $date);
+      ?>
+
+          <h6 class=""><span class="font-weight-bold"><?php echo $post_details[$i]['subject_name'];?>: </span><?php echo$post_details[$i]['time_hour']."hr ".$post_details[$i]['time_minute']."min";?></h6>
+        
+      <?php
+        }
+      ?>
+      </div>
+        <div class="card-footer border-top">
+          <h6 class=""><span class="font-weight-bold">TOTAL: </span></h6>
+        </div>
+  
+      </div>
+      <!-- END OF CARD -->
+
+
+      <?php
+        // for($i = 0; $i < $post_count; $i++){
+        //   $post_details = $post->getDatedPosts($login_id, $date);
+          
+        //   echo "<div class='card mt-4'>";
+        //   if($post_details[$i]['subject_name'] == "HTML"){
+        //     echo "<div class='card-header bg-danger text-white'>
+        //     <div class='row'>
+        //       <div class='col-md-6 text-left'>
+        //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
+        //       </div>
+        //       <div class='col-md-6 text-right'>
+        //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
+        //       </div>
+        //     </div> 
+        //   </div>";
+        //   }elseif($post_details[$i]['subject_name'] == "CSS"){
+        //     echo "<div class='card-header bg-primary text-white'>
+        //     <div class='row'>
+        //       <div class='col-md-6 text-left'>
+        //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
+        //       </div>
+        //       <div class='col-md-6 text-right'>
+        //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
+        //       </div>
+        //     </div> 
+        //   </div>";
+        //   }elseif($post_details[$i]['subject_name'] == "Javascript"){
+        //     echo "<div class='card-header bg-warning text-white'>
+        //     <div class='row'>
+        //       <div class='col-md-6 text-left'>
+        //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
+        //       </div>
+        //       <div class='col-md-6 text-right'>
+        //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
+        //       </div>
+        //     </div> 
+        //   </div>";
+        //   }elseif($post_details[$i]['subject_name'] == "PHP"){
+        //     echo "<div class='card-header bg-secondary text-white'>
+        //     <div class='row'>
+        //       <div class='col-md-6 text-left'>
+        //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
+        //       </div>
+        //       <div class='col-md-6 text-right'>
+        //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
+        //       </div>
+        //     </div> 
+        //   </div>";
+        //   }elseif($post_details[$i]['subject_name'] == "SQL"){
+        //     echo "<div class='card-header bg-info text-white'>
+        //     <div class='row'>
+        //       <div class='col-md-6 text-left'>
+        //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
+        //       </div>
+        //       <div class='col-md-6 text-right'>
+        //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
+        //       </div>
+        //     </div> 
+        //   </div>";
+        //   }elseif($post_details[$i]['subject_name'] == "English"){
+        //     echo "<div class='card-header bg-success text-white'>
+        //     <div class='row'>
+        //     <div class='col-md-6 text-left'>
+        //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
+        //     </div>
+        //       <div class='col-md-6 text-right'>
+        //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
+        //       </div>
+        //     </div> 
+        //     </div>";
+        //   }
+        //   echo "<div class='card-body'>
+        //         ".$post_details[$i]['time_hour']."h".$post_details[$i]['time_minute']."min"
+        //         ."</div>
+        //         </div>"
+        //         ;
+        // }
       }
     ?>
   </div>

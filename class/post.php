@@ -33,10 +33,57 @@
         die("first query is not working".$this->conn->error);
       }
     }
-    
-    public function getPosts($login_id){
-      $sql="SELECT * FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON time.subject_id = subjects.subject_id" ;
+
+    public function getDates($login_id){
+      $sql = "SELECT date, COUNT(time.post_id) AS post_count FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON subjects.subject_id = time.subject_id WHERE posts.login_id = $login_id GROUP BY time.post_id ORDER BY posts.date DESC";
       $result=$this->conn->query($sql);
+      
+      $dates = array();
+      if($result->num_rows>0){
+        while($date=$result->fetch_assoc()){
+          $dates[]=$date;
+        }
+        return $dates;
+      }
+    }
+    
+    public function getDatedPosts($login_id, $date){
+      
+      $sql="SELECT * FROM time INNER JOIN posts ON time.post_id = posts.post_id INNER JOIN subjects ON time.subject_id = subjects.subject_id INNER JOIN login ON login.id = posts.login_id INNER JOIN users ON users.login_id = login.id WHERE posts.login_id = '$login_id' AND date = '$date'";
+        // echo " ".$sql;
+        $result=$this->conn->query($sql);
+
+      $rows=array();
+
+      if($result->num_rows>0){
+        while($row=$result->fetch_assoc()){
+          $rows[]=$row;
+        }
+        return $rows;
+
+        // return $result->fetch_assoc();
+      }
+    }
+
+    public function getPosts($login_id){
+      $sql="SELECT * FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON time.subject_id = subjects.subject_id INNER JOIN login ON login.id = posts.login_id INNER JOIN users ON users.login_id = login.id WHERE posts.login_id = '$login_id'";
+      $result=$this->conn->query($sql);
+      // echo $sql;
+      $rows=array();
+
+      if($result->num_rows>0){
+        while($row=$result->fetch_assoc()){
+          $rows[]=$row;
+        }
+        return $rows;
+      }
+    }
+
+    public function getCurrentDatePosts($login_id){
+      $sql="SELECT * FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON time.subject_id = subjects.subject_id WHERE posts.login_id = '$login_id' AND date = CURRENT_DATE";
+      $result=$this->conn->query($sql);
+
+      echo $sql;
       $rows=array();
 
       if($result->num_rows>0){
