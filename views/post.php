@@ -50,6 +50,8 @@
       foreach($datelist as $dates){
         $post_count = $dates['post_count'];
         $date = $dates['date'];
+        $comment = $dates['comment'];
+        $name = $dates['name'];
 
         // echo "<br>".$post_count."=".$date;
 
@@ -57,7 +59,14 @@
       <!-- START OF CARD -->
       <div class="card mt-4">
       <div class="card-header bg-white">
+      <div class="row">
+        <div class="col-md-6">
+          <h5 class="text-left"><?php echo $name?></h5>
+        </div>
+        <div class="col-md-6">
           <h5 class="text-right"><?php echo $date;?></h5>
+        </div>
+      </div>
       </div>
       <div class="card-body">
       <?php
@@ -71,6 +80,7 @@
       <?php
         }
       ?>
+      <p><?php echo $comment?></p>
       </div>
         <div class="card-footer border-top">
           <h6 class=""><span class="font-weight-bold">TOTAL: </span></h6>

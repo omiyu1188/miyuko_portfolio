@@ -35,7 +35,7 @@
     }
 
     public function getDates($login_id){
-      $sql = "SELECT date, COUNT(time.post_id) AS post_count FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON subjects.subject_id = time.subject_id WHERE posts.login_id = $login_id GROUP BY time.post_id ORDER BY posts.date DESC";
+      $sql = "SELECT date, COUNT(time.post_id) AS post_count, comment, name FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON subjects.subject_id = time.subject_id INNER JOIN users ON posts.login_id = users.login_id WHERE posts.login_id = '$login_id' GROUP BY time.post_id ORDER BY posts.date DESC";
       $result=$this->conn->query($sql);
       
       $dates = array();
