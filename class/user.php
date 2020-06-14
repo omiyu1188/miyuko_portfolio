@@ -29,7 +29,7 @@
 
       if($result->num_rows==1){
         return $result->fetch_assoc();
-        
+
       }else{
         return false;
       }
@@ -47,8 +47,8 @@
         return $rows;
       }
     }
-    public function getSpecificUser($id){
-      $sql = "SELECT * FROM users WHERE user_id='$id'";
+    public function getSpecificUser($login_id){
+      $sql = "SELECT * FROM users INNER JOIN login ON users.login_id=login.id WHERE users.login_id='$login_id'";
 
       $result=$this->conn->query($sql);
       if($result==false){
@@ -58,22 +58,79 @@
         return $result->fetch_assoc();
       }
     }
-    // public function editUser($user_id,$new_first_name,$new_last_name,$new_username,$new_password){
-    //   $sql = "UPDATE users 
-    //           SET first_name = '$new_first_name',
-    //               last_name = '$new_last_name',
-    //               username = '$new_username',
-    //               password = '$new_password'
+    public function getClickedUser($clicked_login_id){
+      $sql = "SELECT * FROM users INNER JOIN login ON users.login_id=login.id WHERE users.login_id='$clicked_login_id'";
 
-    //           WHERE user_id = '$user_id'
-    //           ";
-    //   $result = $this->conn->query($sql);
-    //   if($result == false){
-    //     die ("Cannot Update: ".$this->conn->error);
-    //   }else{
-    //     header("Location:dashboard.php");
-    //   }
-    // }
+      $result=$this->conn->query($sql);
+      if($result==false){
+        die("No record found: ".$this->conn->error);
+
+      }else{
+        return $result->fetch_assoc();
+      }
+    }
+    
+    public function insertToTable($picture,$login_id){
+      $sql= "UPDATE users SET picture = '$picture' WHERE login_id = '$login_id'";
+
+      if($this->conn->query($sql)){
+          //successful in inserting the picture
+          return 1;
+      }else{
+          echo "Not saved " .$this->conn->error;
+          return 0;
+      }
+    }
+    
+    public function searchSpecificImage($login_id){
+      $sql = "SELECT picture FROM users WHERE login_id = '$login_id'";
+      $result = $this->conn->query($sql);
+
+      $row = $result->fetch_assoc();
+
+      return $row;
+  }
+
+    public function editPicture($new_picture,$login_id){
+      $sql = "UPDATE users SET picture = '$new_picture' WHERE login_id='$login_id'";
+      $result = $this->conn->query($sql);
+      if($result == false){
+        die ("Cannot Update: ".$this->conn->error);
+      }else{
+        header("Location:views/profileEdit.php");
+      }
+
+    }
+    public function editUser($new_name,$new_status,$new_bio,$login_id){
+      $sql = "UPDATE users 
+              SET name = '$new_name',
+                  status = '$new_status',
+                  bio = '$new_bio'
+
+              WHERE login_id = '$login_id'
+              ";
+      $result = $this->conn->query($sql);
+      if($result == false){
+        die ("Cannot Update: ".$this->conn->error);
+      }else{
+        header("Location:views/profileEdit.php");
+      }
+    }
+    public function editPassword($new_email,$new_password,$login_id){
+      $sql = "UPDATE login
+              INNER JOIN users ON login.id=users.login_id
+              SET login.email = '$new_email',
+                  login.password = '$new_password'
+
+              WHERE login.id = '$login_id'
+              ";
+      $result = $this->conn->query($sql);
+      if($result == false){
+        die ("Cannot Update: ".$this->conn->error);
+      }else{
+        header("Location:views/passwordEdit.php");
+      }
+    }
     // public function deleteUser($user_id){
     //   $sql="DELETE from users WHERE user_id='$user_id'";
     //   $result = $this->conn->query($sql);

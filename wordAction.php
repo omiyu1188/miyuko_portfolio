@@ -25,6 +25,11 @@
     $new_tag_id=$_POST["new_tag_id"];
     
     $word->editWord($word_id,$new_name,$new_meaning,$new_example,$new_parts_of_speech,$login_id,$new_tag_id);
+  }elseif(isset($_POST["selectTag"])){
+    $specificTag_id=$_POST["selectTag"];
+    $login_id=$_SESSION["login_id"];
+
+    $word->getTagWords($login_id,$specificTag_id);
   }
 
 

@@ -14,7 +14,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Sign Up</title>
+  <title>Write Report</title>
   <meta name="description" content="A free and modern UI toolkit for web makers based on the popular Bootstrap 4 framework.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -24,7 +24,9 @@
   <script src="https://kit.fontawesome.com/b919d7d2ee.js" crossorigin="anonymous"></script>
 </head>
 <body>
-
+<?php
+    include "header.php";
+  ?>
   <div class="container w-50">
   <div class="card mx-auto my-5 border border-0">
     <div class="card-header bg-white text-dark border-0">
@@ -44,7 +46,7 @@
           <?php
             if(isset($_POST["save_how_many"])){
               include "../subjectAction.php";
-              $login_id=$_SESSION["login_id"];
+              // $login_id=$_SESSION["login_id"];
 
               $num=$_POST["how_many"];
               echo '<form action="../postAction.php" method="post">';

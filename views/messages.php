@@ -1,3 +1,24 @@
+<?php
+  include "../messageAction.php";
+  include "../userAction.php";
+  $sender_id=$_SESSION["login_id"];
+  $login_id = $_SESSION["login_id"];
+  $users=$user->getSpecificUser($login_id);
+  $messages=$message->getMessages($sender_id);
+  // print_r($messages);
+  echo $users["name"];
+  
+  // echo "<pre>";
+  // print_r($messages);
+  // echo "</pre>";
+  // foreach($messages as $message){
+  //   // $text=$message["text"];
+  //   echo $name;
+  //   echo "<br>";
+  //   echo $text;
+  // }
+?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -12,20 +33,63 @@
   <link rel="stylesheet" href="../css/shards.min.css?v=3.0.0">
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
 </head>
-<body>
+<body class="bg-light">
+<div class="container">
+  <div class="card w-75 mx-auto mt-5">
+    <div class="card-body">
+      <?php
+        foreach($messages as $message){
+          $name=$message["name"];
+          $users_send_id=$message["sender_id"];
+          $users_receive_id=$message["receiver_id"];
+          $picture=$message["picture"];
+          $text=$message["text"];
+          if($name!=$users["name"]){
+
+      ?>
+      <!-- <div class="row"> -->
+        <a role="button" href="message.php?id=
+        <?php 
+        // if($users_send_id==$sender_id){
+          echo $users["ahaha"];
+        // }elseif($users_send_id==$receiver_id){
+          // echo $receiver_id;
+        // }
+        ?>
+        " class="btn form-control border mb-3">
+          <div class="row text-left">
+            <div class="col-md-3"> 
+              <?php echo $name ?>
+            </div> 
+            <div class="col-md-9"> 
+              <?php echo $text ?>
+            </div> 
+          </div>
+        </a>
+      <!-- </div> -->
+      <?php
+          }
+        }
+      ?>
+      <div class="row">
+        <?php
+          // if($receive == $receiver_id){
+          //   echo "<div class='col-6'></div><div class='col-6 alert mb-4 alert-primary w-50' role='alert' style='display:inline-block;'>.$text.</div>";
+          // }else{
+          //   echo "<div class='col-6 alert mb-4 alert-light' role='alert' style=' '>.$text.</div><div class='col-6'></div>";
+          // }
+        ?>
+      </div>
+      <?php 
+    // }
+     ?>
+    </div>
+  </div>
+  
 
 
-<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="https://designrevision.com" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">
-                  Services
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Design</a>
-                  <a class="dropdown-item" href="#">Development</a>
-                  <a class="dropdown-item" href="#">Marketing</a>
-                </div>
-              </li>
+  </div>
+
   <!-- JavaScript -->
   <div id="fb-root"></div>
   <script>

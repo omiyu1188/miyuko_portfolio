@@ -21,7 +21,9 @@ include "../subjectAction.php";
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
 </head>
 <body>
-
+<?php
+    include "header.php";
+  ?>
   <div class="container-fluid mt-5 w-50">
     <div class="row">
       <div class="col-12">
@@ -57,16 +59,20 @@ include "../subjectAction.php";
         <?php
           $login_id=$_SESSION["login_id"];
           $subjectlist=$subject->getSubjects($login_id);
-          foreach($subjectlist as $subject){
-            $subjectID=$subject["subject_id"];
-            echo "
-              <tr>
-                <td>".$subject['subject_id']."</td>
-                <td>".$subject['subject_name']."</td>
-                <td>"."<a href='subjectEdit.php?id=$subjectID' role='button' class='btn btn-outline-warning mr-4'>"."Edit"."</a>
-                <a href='subjectDelete.php?id=$subjectID' role='button' class='btn btn-outline-danger'>"."Delete"."</a>"."</td>
-              </tr>
-            ";
+          if(empty($subjectlist)){
+
+          }else{
+            foreach($subjectlist as $subject){
+              $subjectID=$subject["subject_id"];
+              echo "
+                <tr>
+                  <td>".$subject['subject_id']."</td>
+                  <td>".$subject['subject_name']."</td>
+                  <td>"."<a href='subjectEdit.php?id=$subjectID' role='button' class='btn btn-outline-warning mr-4'>"."Edit"."</a>
+                  <a href='subjectDelete.php?id=$subjectID' role='button' class='btn btn-outline-danger'>"."Delete"."</a>"."</td>
+                </tr>
+              ";
+            }
           }
         ?>
       </tbody>

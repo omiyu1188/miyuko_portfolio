@@ -1,13 +1,16 @@
 <?php
-  include "../tagAction.php";
+  // include "../userAction.php";
+  // $login_id=$_SESSION["login_id"];
+  // $user_detail = $user->getSpecificUser($login_id);
 ?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Tags</title>
+  <title>Sign Up</title>
   <meta name="description" content="A free and modern UI toolkit for web makers based on the popular Bootstrap 4 framework.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -19,69 +22,56 @@
 <?php
     include "header.php";
   ?>
-  <div class="container">
-    <div class="container">
-
-    </div>
-    <div class="row mt-5">
-      <div class="col-6">
-        <table class="table table-striped table-bordered">
-          <thead class="bg-dark text-white">
-            <th>No.</th>
-            <th>Name</th>
-            <th></th>
-          </thead>
-          <tbody>
-            <?php
-              $login_id=$_SESSION["login_id"];
-              $taglist=$tag->getTags($login_id);
-              if(empty($taglist)){
-              }else{
-                foreach($taglist as $tag){
-                  $tagID=$tag["id"];
-                  
-                  echo "
-                  <tr>
-                  <td>".$tagID."</td>
-                  <td>".$tag['tag_name']."</td>
-                  <td>
-                 
-                  <a href='tagEdit.php?id=$tagID' role='button' name='editTag' class='btn btn-outline-warning mr-3'>Edit</a>
-  
-                  <a href='tagDelete.php?id=$tagID' role='button' name='delete' class='btn btn-outline-danger'>Delete</a></td>
-                  </tr>
-                  ";
-                }
-              }
-              ?>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-6">
-        <div class="card mx-auto border border-0">
-          <div class="card-header bg-white text-dark border-0">
-            <h2 class="text-center pt-5">
-              ADD TAGS
-            </h2>
-          </div>
-          <div class="card-body">
-                  <form action="" method="post">
-                  <div class="form-row">
-                    <div class="form-group col-md-12 mt-3">
-                      <input type="text" class="p-3 form-control" placeholder="TYPE NEW TAG" name="name" required>
+<div class="container">
+      <div class="card mx-auto w-75 my-5 border border-0">
+        <div class="card-header bg-white text-dark border-0">
+          <h2 class="text-center pt-5">
+                EDIT EMAIL / PASSWORD
+          </h2>
+        </div>
+        <div class="card-body">
+          <div class="container mt-5">
+            <form action="../userAction.php" method="post">
+              <div class="form-row">
+              <div class="form-group col-md-6">
+                    <label for="">Email Address</label>
+                    <div class="input-group">
+                      <span class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fa fa-user"></i>
+                        </span>
+                      </span>
+                      <input type="text" name="new_email" class="form-control p-2" value="<?php echo $user_detail["email"] ?>">
                     </div>
                   </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-12 mt-3">
-                      <button type="submit" class="btn btn-outline-danger p-3 form-control"  name="addTag" required>ADD NEW TAG</button>
+                  <div class="form-group col-md-6">
+                    <label for="">Password</label>
+                    <div class="input-group">
+                      <input type="password" name="new_password" id="" cols="30" rows="10" class="form-control">
+                      <input type="hidden" name="old_password" value="<?php echo $user_detail['password']; ?>">
                     </div>
                   </div>
-                  </form>
+                </div>
+                <div class="form-row mt-3">
+                  <div class="form-group col-md-12">
+                    <div class="input-group">
+                      <button type="submit" name="editPassword" class="form-control btn btn-primary form-control text-uppercase">SAVE</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row mt-3">
+                  <div class="form-group ml-auto mr-2">
+                    <div class="input-group ">
+                      <a href="" class="text-danger">ahaha→</a>
+                    </div>
+                  </div>
+                </div>
+            </form>
           </div>
         </div>
       </div>
-    </div>
   </div>
+
 
   <!-- JavaScript -->
   <div id="fb-root"></div>

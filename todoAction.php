@@ -1,7 +1,9 @@
 <?php
   require_once "class/todo.php";
   $todo = new Todo();
-  session_start();
+  if(!isset($_SESSION)){
+    session_start();
+  }
 
   if(isset($_POST["addTodo"])){
     $todo_name =$_POST["todo_name"];

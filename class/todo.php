@@ -13,7 +13,8 @@
       if($result==false){
         die("cannot add task: ".$this->conn->error);
       }else{
-        header("location:todo.php");
+        $uri = $_SERVER['HTTP_REFERER'];
+        header("Location: ".$uri);  
       }
     }
     
@@ -62,7 +63,8 @@
       if($result == false){
         die ("Cannot Delete: ".$this->conn->error);
       }else{
-        header("Location:todo.php");
+        $uri = $_SERVER['HTTP_REFERER'];
+        header("Location: ".$uri);  
       }
     }
 

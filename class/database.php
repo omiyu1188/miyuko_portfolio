@@ -2,8 +2,8 @@
   class Database{
     private $servername="localhost";
     private $db_username="root";
-    private $db_password="";
-    private $database="miyuko_portfolio";
+    private $db_password="root";
+    private $database="portfolio";
     public $conn;
 
     public function __construct(){
@@ -16,5 +16,5 @@
     }
   }
 
-  //hello 
+  
 ?>

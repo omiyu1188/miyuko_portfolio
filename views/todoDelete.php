@@ -1,5 +1,5 @@
 <?php
-  include "../tagAction.php";
-  $id=$_GET["id"];
-  $tag->deleteTag($id);
+  include "../todoAction.php";
+  $todo_id=$_GET["id"];
+  $todo->deleteTodo($todo_id);
 ?>

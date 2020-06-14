@@ -2,8 +2,7 @@
 include "../todoAction.php";
 
 $todo_id=$_GET["id"];
-$login_id=$_SESSION["login_id"];
-$todo_detail = $todo->getSpecificTodo($todo_id,$login_id);
+// $login_id=$_SESSION["login_id"];
 // include "../userAction.php";
 // $id=$_SESSION["id"];
 // $row=getOneUser($id);
@@ -25,7 +24,10 @@ $todo_detail = $todo->getSpecificTodo($todo_id,$login_id);
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
 </head>
 <body>
-
+<?php
+    include "header.php";
+    $todo_detail = $todo->getSpecificTodo($todo_id,$login_id);
+  ?>
   <div class="container-fluid mt-5 w-50">
     <div class="row">
       <div class="col-12">

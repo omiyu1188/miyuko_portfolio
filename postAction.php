@@ -26,6 +26,8 @@
     $new_tag_id=$_POST["new_tag_id"];
     
     $post->editPost($post_id,$new_name,$new_meaning,$new_example,$new_parts_of_speech,$login_id,$new_tag_id);
+  }elseif(isset($_POST["fav"])){
+    
   }
 
 

@@ -1,3 +1,19 @@
+<?php
+  include "../messageAction.php";
+  $receiver_id=$_GET["id"];
+  $sender_id=$_SESSION["login_id"];
+  $messages=$message->getMessage($receiver_id,$sender_id);
+  // echo "<pre>";
+  // print_r($messages);
+  // echo "</pre>";
+  foreach($messages as $message){
+    $name=$message["name"];
+    $picture=$message["picture"];
+  }
+  // echo $sender_id;
+  // echo $receiver_id;
+?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 
@@ -13,54 +29,45 @@
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
 </head>
 <body class="bg-light">
+<?php
+    include "header.php";
+  ?>
   <div class="container">
-  
   <div class="card w-75 mx-auto mt-5">
     <div class="card-header">
-      >> Miyuko
+    <img src='../upload/<?php echo $picture ?>' class='img-fluid rounded-circle' style='width:25px;'> <?php echo $name ?>
     </div>
     <div class="card-body">
-      <!-- <h4 class="card-title">Title</h4>
-      <p class="card-text">Text</p> -->
-
-      <div class="alert mb-4 alert-primary" role="alert">
-        Hello. Where are you now?
+      <?php
+        foreach($messages as $message){
+          $text=$message["text"];
+          $receive=$message["receiver_id"];
+      ?>
+      <div class="row">
+        <?php
+          if($receive == $receiver_id){
+            echo "<div class='col-6'></div><div class='col-6 alert mb-4 alert-primary w-50' role='alert' style='display:inline-block;'>$text</div>";
+          }else{
+            echo "<div class='col-6 alert mb-4 alert-light' role='alert' style=' '>$text</div><div class='col-6'></div>";
+          }
+        ?>
       </div>
-      <div class="alert mb-4 alert-light" role="alert">
-        <p class="mb-0">I'm still on my bed.</p>
-      </div>
-      <div class="alert mb-4 alert-primary" role="alert">
-        <p class="mb-0">I see...</p>
-      </div>
-      <div class="alert mb-4 alert-light" role="alert">
-        <p class="mb-0">I'm hungry</p>
-      </div>
-      <div class="alert mb-4 alert-primary" role="alert">
-        <p class="mb-0">Me too.</p>
-      </div>
-      <div class="alert mb-4 alert-light" role="alert">
-        <p class="mb-0">Lets grab a bite to eat.</p>
-      </div>
-      <div class="alert mb-4 alert-primary" role="alert">
-        <p class="mb-0">Sound great.</p>
-      </div>
-
+      <?php } ?>
     </div>
     <div class="card-footer text-muted">
-      <form action="">
+      <form action="" method="post">
         <div class="form-row">
           <div class="form-group col-10">
-            <input type="text" class="form-control">
+            <input type="text" class="form-control" name="text">
           </div>
           <div class="form-group col-2">
-            <input type="submit" class="form-control btn btn-outline-primary">
+            <input type="submit" class="form-control btn btn-outline-primary" name="addMessage">
           </div>
         </div>
       </form>
     </div>
   </div>
-  </div>
-
+  
 
 
   </div>

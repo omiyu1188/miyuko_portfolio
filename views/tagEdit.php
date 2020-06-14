@@ -2,8 +2,8 @@
   include "../tagAction.php";
 
   $id=$_GET["id"];
-  $tag_detail = $tag->getSpecificTag($id);
-  // print_r($tag)
+// $login_id=$_SESSION["login_id"];
+// print_r($tag)
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
@@ -20,7 +20,10 @@
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
 </head>
 <body>
-
+<?php
+    include "header.php";
+    $tag_detail = $tag->getSpecificTag($id,$login_id);
+  ?>
   <div class="container">
     <div class="container">
 
@@ -35,7 +38,8 @@
           </thead>
           <tbody>
             <?php
-              $taglist=$tag->getTags();
+              $login_id=$_SESSION["login_id"];
+              $taglist=$tag->getTags($login_id);
               foreach($taglist as $tag){
                 $tagID=$tag["id"];
                 

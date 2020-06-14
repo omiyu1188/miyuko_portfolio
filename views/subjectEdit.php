@@ -1,9 +1,7 @@
 <?php
 include "../subjectAction.php";
 
-$subject_id=$_GET["id"];
-$login_id=$_SESSION["login_id"];
-$subject_detail = $subject->getSpecificSubject($subject_id,$login_id);
+
 // include "../userAction.php";
 // $id=$_SESSION["id"];
 // $row=getOneUser($id);
@@ -25,7 +23,12 @@ $subject_detail = $subject->getSpecificSubject($subject_id,$login_id);
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
 </head>
 <body>
-
+<?php
+    include "header.php";
+    $subject_id=$_GET["id"];
+// $login_id=$_SESSION["login_id"];
+$subject_detail = $subject->getSpecificSubject($subject_id,$login_id);
+  ?>
   <div class="container-fluid mt-5 w-50">
     <div class="row">
       <div class="col-12">

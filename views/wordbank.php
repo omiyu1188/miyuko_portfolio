@@ -1,5 +1,6 @@
 <?php
 include "../wordAction.php";
+
 // include "../userAction.php";
 // $id=$_SESSION["id"];
 // $row=getOneUser($id);
@@ -21,79 +22,126 @@ include "../wordAction.php";
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
 </head>
 <body>
+<?php
+    include "header.php";
+  ?>
+<div class="container">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  ADD NEW WORD
+</button>
 
-  <div class="container-fluid mt-5">
-    <div class="card mx-auto border border-0 w-50">
-      <div class="card-header bg-white text-dark border-0">
-        <h2 class="text-center pt-5">
-          ADD NEW WORD
-        </h2>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ADD NEW WORD</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="card-body">
-        <form action="" method="post">
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label for="">New Word</label>
-              <input type="text" class="p-2 form-control"  name="name" required>
+      <div class="modal-body">
+        <!-- <div class="card-header bg-white text-dark border-0">
+          <h2 class="text-center pt-5">
+            ADD NEW WORD
+          </h2>
+        </div> -->
+        <div class="container">
+          <form action="" method="post">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="">New Word</label>
+                <input type="text" class="p-2 form-control"  name="name" required>
+              </div>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label for="">Meaning</label>
-              <input type="text" class="p-2 form-control"  name="meaning" required>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label for="">Meaning</label>
+                <input type="text" class="p-2 form-control"  name="meaning" required>
+              </div>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-            <label for="">Example Sentence</label>
-              <input type="text" class="p-2 form-control"  name="example" required>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+              <label for="">Example Sentence</label>
+                <input type="text" class="p-2 form-control"  name="example" required>
+              </div>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-            <label for="">Figure of speech</label>
-              <select name="parts_of_speech" id=""class="form-control">
-                <option value=""hidden>Chose ...</option>
-                <option value="noun">Noun</option>
-                <option value="verb">Verb</option>
-                <option value="adjective">Adjective</option>
-                <option value="adverb">Adverb</option>
-                <option value="perposition">Preposition</option>
-                <option value="conjunction">Conjunction</option>
-                <option value="">
-Interjection</option>
-              </select>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+              <label for="">Figure of speech</label>
+                <select name="parts_of_speech" id=""class="form-control">
+                  <option value=""hidden>Chose ...</option>
+                  <option value="noun">Noun</option>
+                  <option value="verb">Verb</option>
+                  <option value="adjective">Adjective</option>
+                  <option value="adverb">Adverb</option>
+                  <option value="perposition">Preposition</option>
+                  <option value="conjunction">Conjunction</option>
+                  <option value="">
+      Interjection</option>
+                </select>
+              </div>
+            <!-- </div> -->
+            <!-- <div class="form-row"> -->
+              <div class="form-group col-md-6">
+              <label for="">Tag</label>
+                <select name="tag" id=""class="form-control">
+                  <option value=""hidden>Choose ...</option>
+                  <?php
+                    include "../tagAction.php";
+                    $login_id=$_SESSION["login_id"];
+                    $taglist=$tag->getTags($login_id);
+                    foreach($taglist as $tag){
+                      $tag_id=$tag["id"];
+                      echo "
+                      <option value='$tag_id'>".$tag['tag_name']."</option>
+                      ";
+                    }
+                  ?>
+                  
+                </select>
+              </div>
             </div>
-          <!-- </div> -->
-          <!-- <div class="form-row"> -->
-            <div class="form-group col-md-6">
-            <label for="">Tag</label>
-              <select name="tag" id=""class="form-control">
-                <option value=""hidden>Choose ...</option>
-                <?php
-                  include "../tagAction.php";
-                  $taglist=$tag->getTags();
-                  foreach($taglist as $tag){
-                    $tag_id=$tag["id"];
-                    echo "
-                    <option value='$tag_id'>".$tag['tag_name']."</option>
-                    ";
-                  }
-                ?>
-                
-              </select>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input type="hidden" name="login_id" value="<?php echo '';?>">
+                <button type="submit" class="btn btn-outline-danger p-2 form-control mt-3 p-3"  name="addWord" required>ADD NEW WORD</button>
+              </div>
             </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <input type="hidden" name="login_id" value="<?php echo '';?>">
-              <button type="submit" class="btn btn-outline-danger p-2 form-control mt-3 p-3"  name="addWord" required>ADD NEW WORD</button>
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
-    
+  </div>
+</div>
+
+<form action="" method="post">
+  <?php
+    include "../tagAction.php";
+    $login_id=$_SESSION["login_id"];
+    $taglist=$tag->getTags($login_id);
+    if(empty($taglist)){
+      echo "you can add tags";
+    }else{
+      foreach($taglist as $tag){
+        $tag_id=$tag["id"];
+        echo '
+        <button class="btn btn-success" type="submit" value="'.$tag_id.'" name="selectTag">'.$tag['tag_name'].'</button>
+        ';
+      }
+    }
+  ?>
+</form>
+
+  <?php
+    // if(isset($_POST[".$tag.['id']."])){
+
+    // }
+  ?>
 
     <table class="table table-hover table-striped table-bordered mx-auto my-5 ">
       <thead class="thead-dark">
@@ -108,19 +156,75 @@ Interjection</option>
         <?php
           $login_id=$_SESSION["login_id"];
           $wordlist=$word->getWords($login_id);
-          foreach($wordlist as $word){
-            $wordID=$word["word_id"];
+          if(empty($wordlist)){
             echo "
               <tr>
-                <td>".$word['word_id']."</td>
-                <td>".$word['word_name']." ( ".$word['parts_of_speech']." )"."</td>
-                <td>".$word['meaning']."</td>
-                <td>".$word['example']."</td>
-                <td>".$word['tag_name']."</td>
-                <td>"."<a href='wordEdit.php?id=$wordID' role='button' class='btn btn-outline-warning mr-4'>"."Edit"."</a>
-                <a href='wordDelete.php?id=$wordID' role='button' class='btn btn-outline-danger'>"."Delete"."</a>"."</td>
-              </tr>
+                <td colspan='6' class=' text-dark'>
+                You don't have any words yet.<br>
+                Please push the 'ADD NEW WORD' button and you can create your own wordbank here.
+                </td>
+              <tr>
             ";
+          }else{
+            if(isset($_POST["selectTag"])){
+              
+              $tag_id=$_POST["selectTag"];
+              $wordlist=$word->getTagWords($login_id,$tag_id);
+              foreach($wordlist as $word){
+                if($_POST["selectTag"]==$tag_id){
+                  $wordID=$word["word_id"];
+                echo "
+                  <tr>
+                    <td>".$word['word_id']."</td>
+                    <td>".$word['word_name']." 
+                    ( ".$word['parts_of_speech']." )"."</td>
+                    <td>".$word['meaning']."</td>
+                    <td>".$word['example']."</td>
+                    <td>".$word['tag_name']."</td>
+                    <td>"."<a href='wordEdit.php?id=$wordID' role='button' class='btn btn-outline-warning mr-4'>"."Edit"."</a>
+                    <a href='wordDelete.php?id=$wordID' role='button' class='btn btn-outline-danger'>"."Delete"."</a>"."</td>
+                  </tr>
+                ";
+                }
+              }
+              // if($word["tag_id"]==$tag_id){
+
+              // }
+
+              // foreach($wordlist as $word){
+
+                // $wordID=$word["word_id"];
+                // echo "
+                //   <tr>
+                //     <td>".$word['word_id']."</td>
+                //     <td>".$word['word_name']." 
+                //     ( ".$word['parts_of_speech']." )"."</td>
+                //     <td>".$word['meaning']."</td>
+                //     <td>".$word['example']."</td>
+                //     <td>".$word['tag_name']."</td>
+                //     <td>"."<a href='wordEdit.php?id=$wordID' role='button' class='btn btn-outline-warning mr-4'>"."Edit"."</a>
+                //     <a href='wordDelete.php?id=$wordID' role='button' class='btn btn-outline-danger'>"."Delete"."</a>"."</td>
+                //   </tr>
+                // ";
+
+              // }
+            }else{
+              foreach($wordlist as $word){
+                $wordID=$word["word_id"];
+                echo "
+                  <tr>
+                    <td>".$word['word_id']."</td>
+                    <td>".$word['word_name']." 
+                    ( ".$word['parts_of_speech']." )"."</td>
+                    <td>".$word['meaning']."</td>
+                    <td>".$word['example']."</td>
+                    <td>".$word['tag_name']."</td>
+                    <td>"."<a href='wordEdit.php?id=$wordID' role='button' class='btn btn-outline-warning mr-4'>"."Edit"."</a>
+                    <a href='wordDelete.php?id=$wordID' role='button' class='btn btn-outline-danger'>"."Delete"."</a>"."</td>
+                  </tr>
+                ";
+              }
+            }
           }
         ?>
         <?php

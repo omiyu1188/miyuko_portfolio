@@ -1,7 +1,9 @@
 <?php
   require_once "class/subject.php";
   $subject = new Subject();
-  session_start();
+  if(!isset($_SESSION)){
+    session_start();
+  }
 
   if(isset($_POST["addSubject"])){
     $subject_name =$_POST["subject_name"];

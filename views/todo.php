@@ -21,7 +21,9 @@ include "../todoAction.php";
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
 </head>
 <body>
-
+<?php
+    include "header.php";
+  ?>
   <div class="container-fluid mt-5 w-50">
     <h2>TODO LISTS</h2><br>
     <div class="row">
@@ -59,15 +61,19 @@ include "../todoAction.php";
         <?php
           $login_id=$_SESSION["login_id"];
           $todolist=$todo->getTodo($login_id);
-          foreach($todolist as $todo){
-            $todoID=$todo["todo_id"];
-            echo "
-              <tr>
-                <td>".$todo['todo_id']."</td>
-                <td>".$todo['todo_name']."</td>
-                <td><a href='todoDelete.php?id=$todoID' role='button' class='btn text-white' style='background-color:purple;'>"."Delete Task"."</a>"."</td>
-              </tr>
-            ";
+          if(empty($todolist)){
+
+          }else{
+            foreach($todolist as $todo){
+              $todoID=$todo["todo_id"];
+              echo "
+                <tr>
+                  <td>".$todo['todo_id']."</td>
+                  <td>".$todo['todo_name']."</td>
+                  <td><a href='todoDelete.php?id=$todoID' role='button' class='btn text-white' style='background-color:purple;'>"."Delete Task"."</a>"."</td>
+                </tr>
+              ";
+            }
           }
         ?>
       </tbody>

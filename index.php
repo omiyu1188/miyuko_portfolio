@@ -23,7 +23,7 @@
             <ul class="navbar-nav">
               
               <li class="nav-item pr-3">
-                <a role="button" class="nav-link btn btn-lg" href="views/login.php">sec
+                <a role="button" class="nav-link btn btn-lg" href="views/login.php">
                   Login
                 </a>
               </li>

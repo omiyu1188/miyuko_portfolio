@@ -27,15 +27,15 @@
         if($thirdResult==FALSE){
           die("third query is not working".$this->conn->error);
         }else{
-          header("location:views/post.php");
+          header("location:views/home.php");
         }
       }else{
         die("first query is not working".$this->conn->error);
       }
     }
 
-    public function getDates($login_id){
-      $sql = "SELECT date, COUNT(time.post_id) AS post_count, comment, name FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON subjects.subject_id = time.subject_id INNER JOIN users ON posts.login_id = users.login_id WHERE posts.login_id = '$login_id' GROUP BY time.post_id ORDER BY posts.date DESC";
+    public function getDates(){
+      $sql = "SELECT date,sum(time.time_hour) AS totalHour ,sum(time.time_minute) AS totalMinute, COUNT(time.post_id) AS post_count, comment, posts.login_id AS user_login_id, users.name, users.picture, time.post_id FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON subjects.subject_id = time.subject_id INNER JOIN users ON posts.login_id = users.login_id  GROUP BY time.post_id, users.name, users.picture ORDER BY posts.date DESC";
       $result=$this->conn->query($sql);
       
       $dates = array();
@@ -47,9 +47,9 @@
       }
     }
     
-    public function getDatedPosts($login_id, $date){
+    public function getDatedPosts($date){
       
-      $sql="SELECT * FROM time INNER JOIN posts ON time.post_id = posts.post_id INNER JOIN subjects ON time.subject_id = subjects.subject_id INNER JOIN login ON login.id = posts.login_id INNER JOIN users ON users.login_id = login.id WHERE posts.login_id = '$login_id' AND date = '$date'";
+      $sql="SELECT * FROM time INNER JOIN posts ON time.post_id = posts.post_id INNER JOIN subjects ON time.subject_id = subjects.subject_id INNER JOIN login ON login.id = posts.login_id INNER JOIN users ON users.login_id = login.id AND date = '$date'";
         // echo " ".$sql;
         $result=$this->conn->query($sql);
 
@@ -65,8 +65,8 @@
       }
     }
 
-    public function getPosts($login_id){
-      $sql="SELECT * FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON time.subject_id = subjects.subject_id INNER JOIN login ON login.id = posts.login_id INNER JOIN users ON users.login_id = login.id WHERE posts.login_id = '$login_id'";
+    public function getPosts(){
+      $sql="SELECT * FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON time.subject_id = subjects.subject_id INNER JOIN login ON login.id = posts.login_id INNER JOIN users ON users.login_id = login.id ";
       $result=$this->conn->query($sql);
       // echo $sql;
       $rows=array();
@@ -78,6 +78,19 @@
         return $rows;
       }
     }
+
+    // public function getTimes(){
+    //   $sql="SELECT sum(time_hour) AS totalHour ,sum(time_minute) AS totalMinute FROM time GROUP BY post_id";
+    //   $result=$this->conn->query($sql);
+    //   $rows=array();
+
+    //   if($result->num_rows>0){
+    //     while($row=$result->fetch_assoc()){
+    //       $rows[]=$row;
+    //     }
+    //     return $rows;
+    //   }
+    // }
 
     public function getCurrentDatePosts($login_id){
       $sql="SELECT * FROM posts INNER JOIN time ON time.post_id = posts.post_id INNER JOIN subjects ON time.subject_id = subjects.subject_id WHERE posts.login_id = '$login_id' AND date = CURRENT_DATE";
@@ -120,7 +133,7 @@
       if($result==false){
         die ("cannot update ".$this->conn->error);
       }else{
-        header("location: post.php");
+        header("location: home.php");
       }
     }
 
@@ -130,10 +143,9 @@
       if($result == false){
         die ("Cannot Delete: ".$this->conn->error);
       }else{
-        header("Location:post.php");
+        header("Location:home.php");
       }
     }
-
 
 
   }

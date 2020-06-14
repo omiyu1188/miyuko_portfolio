@@ -2,10 +2,9 @@
   include "../wordAction.php";
 
   $id=$_GET["id"];
-  $login_id=$_SESSION["login_id"];
+  // $login_id=$_SESSION["login_id"];
 
-  $word_detail = $word->getSpecificWord($id,$login_id);
-?>
+  ?>
 
 <!doctype html>
 <html class="no-js" lang="en">
@@ -22,7 +21,10 @@
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
 </head>
 <body>
-
+<?php
+    include "header.php";
+    $word_detail = $word->getSpecificWord($id,$login_id);
+  ?>
 
 <div class="container-fluid mt-5">
         <div class="card mx-auto w-50 border border-0">
@@ -58,38 +60,38 @@
                     </div>
                     <div class="form-row">
                       <div class="form-group col-md-6 mt-">
-                      <label for="">Figure Of Speech</label>
-                      <select name="new_parts_of_speech" id="" class="form-control">
-                      <option value="'.$word_detail['parts_of_speech'].'">'.$word_detail['parts_of_speech'].'</option>
-                      <option value="noun">Noun</option>
-                      <option value="verb">Verb</option>
-                      <option value="adjective">Adjective</option>
-                      <option value="adverb">Adverb</option>
-                      <option value="perposition">Preposition</option>
-                      <option value="conjunction">Conjunction</option>
-                      <option value="interjection">Interjection</option>
-                    </select>
+                        <label for="">Figure Of Speech</label>
+                        <select name="new_parts_of_speech" id="" class="form-control">
+                          <option value="'.$word_detail['parts_of_speech'].'">'.$word_detail['parts_of_speech'].'</option>
+                          <option value="noun">Noun</option>
+                          <option value="verb">Verb</option>
+                          <option value="adjective">Adjective</option>
+                          <option value="adverb">Adverb</option>
+                          <option value="perposition">Preposition</option>
+                          <option value="conjunction">Conjunction</option>
+                          <option value="interjection">Interjection</option>
+                        </select>
                       </div>
 
 
                       <div class="form-group col-md-6 mt-">
-                      <label for="">Tag</label>
-                      <select name="new_tag_id" id=""class="form-control">
-                      <option value="'.$word_detail['tag_id'].'">'.$word_detail["tag_name"].'</option>';
-                      ?>
-                      <?php
-                        include "../tagAction.php";
-                        $taglist=$tag->getTags();
-                        foreach($taglist as $tag){
-                          $tag_id=$tag["id"];
-                          echo "
-                          <option value='$tag_id'>".$tag['tag_name']."</option>
-                          ";
-                        }
-                      ?>
-                      <?php
-                      echo '
-                    </select>
+                        <label for="">Tag</label>
+                        <select name="new_tag_id" id=""class="form-control">
+                        <option value="'.$word_detail['tag_id'].'">'.$word_detail["tag_name"].'</option>';
+                        ?>
+                        <?php
+                          include "../tagAction.php";
+                          $taglist=$tag->getTags($login_id);
+                          foreach($taglist as $tag){
+                            $tag_id=$tag["id"];
+                            echo "
+                            <option value='$tag_id'>".$tag['tag_name']."</option>
+                            ";
+                          }
+                        ?>
+                        <?php
+                        echo '
+                        </select>
                       </div>
                     </div>
                     <div class="form-row">
