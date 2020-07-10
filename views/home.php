@@ -1,9 +1,6 @@
 <?php
 include "../postAction.php";
 include "../todoAction.php";
-// include "../userAction.php";
-// $login_id=$_SESSION["login_id"];
-// $user_detail = $user->getSpecificUser($login_id);
 ?>
 
 <!doctype html>
@@ -12,7 +9,7 @@ include "../todoAction.php";
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Home</title>
+  <title>ホーム</title>
   <meta name="description" content="A free and modern UI toolkit for web makers based on the popular Bootstrap 4 framework.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -22,74 +19,85 @@ include "../todoAction.php";
   <script src="https://kit.fontawesome.com/b919d7d2ee.js" crossorigin="anonymous"></script>
   
 </head>
-<body style="background-image:url(../image/index-background.png);">
+<body style="background-image:url(../image/index-background.png); background-size:cover; margin:0; padding:0;">
   <?php
-    include "header.php";
+    include ("header.php");
   ?>
   <div class="row my-5">
-    <div class="col-md-3  overflow-auto" style="height:800px;">
-      <div class="card mx-auto w-75 p-3">
+    <div class="pc col-md-3" >
+      <div class="card mx-auto w-75 p-1 overflow-auto"style="height:650px;">
         <div class="card-body">
-          <h4>TODO LISTS</h4><br>
+          <h3 class="text-center">TODO LISTS</h3><br>
           <div class="row">
             <div class="col-md-12">
-        <!-- <div class="card mx-auto border border-0"> -->
-        
-          <!-- <div class="card-body"> -->
-            <form action="" method="post">
-              <div class="form-row">
-                <div class="form-group col-md-12">
-                  <input type="text" class="p-2 form-control"  name="todo_name" placeholder="Add New Task" required>
+              <form action="" method="post">
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <input type="text" class="p-2 form-control"  name="todo_name" placeholder="タスクを入力..." required>
+                  </div>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-12">
-                  <input type="hidden" name="login_id" value="<?php echo '';?>">
-                  <button type="submit" class="btn text-white form-control" style="background-color:purple;"  name="addTodo" required>ADD</button>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <input type="hidden" name="login_id" value="<?php echo '';?>">
+                    <button type="submit" class="btn text-white form-control" style="background-color:purple;"  name="addTodo" required>追加</button>
+                  </div>
                 </div>
-              </div>
-            </form>
-          <!-- </div> -->
-        <!-- </div> -->
+              </form>
             </div>
+            <?php 
+              $login_id=$_SESSION["login_id"];
+              $todolist=$todo->getTodo($login_id);
+              if(isset($todolist)):
+            ?>
             <div class="col-md-12">
-              <h4 class="mb-3 mt-5">CURRENT TASKS</h4>
-            <table class="table table-hover  mx-auto ">
-              <!-- <thead class=""> -->
-                <!-- <th>No.</th> -->
-                <th>Task</th>
-                <th></th>
-              <!-- </thead> -->
-              <tbody>
-                <?php
-                  $login_id=$_SESSION["login_id"];
-                  $todolist=$todo->getTodo($login_id);
-                  if(empty($todolist)){
+              <h5 class="mb-3 mt-5">CURRENT TASKS</h5>
+              <table class="table table-hover  mx-auto ">
+                <tbody>
+                  <?php
+           
+                      foreach($todolist as $todo){
+                        $todoID=$todo["todo_id"];
+                        echo "
+                        <tr>
+                        
+                        <td>".$todo['todo_name']."</td>
+                        <td><a href='todoDelete.php?id=$todoID' role='button' class='' style='color:purple;'>"."<i class='far fa-check-circle'></i>"."</a>"."</td>
+                        </tr>
+                        ";
+                      }
                     
-                  }else{
-                    foreach($todolist as $todo){
-                      $todoID=$todo["todo_id"];
-                      echo "
-                      <tr>
-                      
-                      <td>".$todo['todo_name']."</td>
-                      <td><a href='todoDelete.php?id=$todoID' role='button' class='' style='color:purple;'>"."<i class='far fa-check-circle'></i>"."</a>"."</td>
-                      </tr>
-                      ";
-                    }
-                  }
-                  ?>
-              </tbody>
-            </table>
-          </div>
+                    ?>
+                </tbody>
+              </table>
+            </div>
+            <?php endif; ?>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-6 mb-5 overflow-auto" style="height:800px;">
+  <div class="pc-scroll sp-width col-md-6 mb-5 ">
+    <?php
+
+      include "../subjectAction.php";
+      $subjectlist=$subject->getSubjects($login_id);
+      if(empty($subjectlist)):
+
+    ?>
     <div class="card mx-auto">
       <div class="card-header bg-white text-dark">
-      
+        <h2 class="text-center mt-5">
+          ① 科目/教材の追加
+        </h2>
+      </div>
+      <div class="card-body text-center">
+        <a href="subject.php">こちらをクリックして、今学習している科目/教材の登録をしてください。</a><br><br>
+        <a href="subject.php" class="btn btn-primary">科目/教科の登録</a>
+        <form action="" method="post">
+      </div>
+    </div>
+    <?php else: ?>
+    <div class="card mx-auto">
+      <div class="card-header bg-white text-dark">
               <h2 class="text-center mt-5">
                 TODAY'S REPORT
               </h2>
@@ -104,15 +112,14 @@ include "../todoAction.php";
                 echo '<form action="../postAction.php" method="post">';
                 
                 for($i=0;$i<$num;$i++){  
-                  $subjetlist=$subject->getSubjects($login_id);
                   echo '
                   <div class="form-row w-75 mx-auto">
                       <input type="hidden" name="count" value="'.$num.'">
                       <div class="form-group col-md-6">
-                      <label>Subject</label>
+                      <label>科目/教材</label>
                       <select name="subject[]" class="form-control">
                       <option hidden>choose ...</option>';
-                              foreach($subjetlist as $detail){
+                              foreach($subjectlist as $detail){
                                 $subject_id=$detail["subject_id"];
                                 echo '
                                 <option value="'.$subject_id.'">'.$detail["subject_name"].'</option>
@@ -121,9 +128,9 @@ include "../todoAction.php";
                       echo '
                       </select>
                       </div>
-
+                      
                       <div class="form-group col-md-3">
-                        <label>Hours</label>
+                        <label>時間</label>
                         <div class="input-group">
                           <select name="hour[]" class="form-control p-2">
                             <option>0</option>
@@ -144,7 +151,7 @@ include "../todoAction.php";
                       </div>
 
                       <div class="form-group col-md-3">
-                        <label>Minutes</label>
+                        <label>分</label>
                         <div class="input-group">
                           <select name="minute[]" class="form-control p-2">
                             <option>0</option>
@@ -169,7 +176,7 @@ include "../todoAction.php";
                 echo '
                 <div class="form-row w-75 mx-auto">
                 <div class="form-group col-md-12">
-                <label for="">Comment</label>
+                <label for="">コメント</label>
                 <div class="input-group">
                 <span class="input-group-prepend">
                         <span class="input-group-text">
@@ -182,7 +189,7 @@ include "../todoAction.php";
                         </div>
                         <div class="form-row w-75 mx-auto">
                         <div class="form-group col-md-12">
-                        <label for="">Date</label>
+                        <label for="">日付</label>
                         <div class="input-group">
                         <span class="input-group-prepend">
                         <span class="input-group-text">
@@ -201,16 +208,13 @@ include "../todoAction.php";
                         </div>
                         </div>
                         </form>
-                        
                         ';
-                        
-                        
                       }
                       else{
                         echo '
                         <form action="" method="post">
                         <div class="form-row w-75 mx-auto">
-                          <label for="">How Many Subjects Did You Study?</label>
+                          <label for="">本日学習した科目/教材の個数を入力してください。</label>
                           <div class="form-group col-md-9">
                             <input type="number" name="how_many" class="form-control">
                           </div>
@@ -223,27 +227,23 @@ include "../todoAction.php";
                       }
                       ?>
 
-  </div>
-  </div>
+     </div>
+    </div>
+    <?php endif; ?>
       <?php
         $datelist = $post->getDates();
         $postlist = $post->getPosts();
 
-        // print_r($datelist);
-
-        foreach($datelist as $dates){
+        foreach((array)$datelist as $dates){
           $post_count = $dates['post_count'];
           $date = $dates['date'];
           $comment = $dates['comment'];
           $user_login_id = $dates['user_login_id'];
           $name = $dates['name'];
-          // $picture = $dates['picture'];
+          $picture = $dates['picture'];
           $post_id = $dates['post_id'];
           $totalHour = $dates['totalHour'];
           $totalMinute = $dates['totalMinute'];
-
-          // echo "<br>".$post_count."=".$date;
-
         ?>
         <!-- START OF CARD -->
         <div class="card mt-4">
@@ -251,7 +251,7 @@ include "../todoAction.php";
         <div class="row">
           <div class="col-md-6">
             <a href="profile.php?id=<?php echo $user_login_id ?>">
-              <img src='../upload/<?php echo $user_detail["picture"] ?>' class='img-fluid rounded-circle' style="width:45px; display:inline;">
+              <img src='../upload/<?php echo $picture?>' class='img-fluid rounded-circle' style="width:45px; display:inline;">
               &nbsp;
               <span class="text-black" style="font-size:25px;"><?php echo $name?></span>
             </a>
@@ -272,7 +272,6 @@ include "../todoAction.php";
           
             <?php
           }
-          // $subject_count=count($post_details[$i]['subject_name']);
           ?>
           <p class="font-weight-bold border-top mt-2 mb-3">TOTAL:
             <?php
@@ -307,127 +306,37 @@ include "../todoAction.php";
         </div>
           <div class="card-footer border-top">
             <form action="" method="post">
-            <?php 
-            // echo $login_id;
-            ?>
-            <input type="hidden" value="<?php echo $post_id; ?>">
+            <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
             <input type="hidden" value="<?php echo $login_id;?>">
             
               <?php
-                if(isset($_POST["fav"])){
-                  echo "
-                  <button class='btn' type='submit' name='delete_fav' onclick='location.href=''>
-                  <i class='fas fa-heart'></i>
-                  </button>
-                  ";
+                $likeCount = $post->likeCount($post_id);
+                foreach ((array)$likeCount as $likeData){
+                  if($likeData['li_cnt'] >=1){
+
+                    $li_cnt=$likeData['li_cnt'];
+                  }
                 }
-                elseif(isset($_POST["delete_fav"])){
-                  echo "
-                  <button class='btn' type='submit' name='fav'>
-                  <i class='far fa-heart'></i>
-                  ";
+                $likeExistence=$post->likeExistence($post_id,$login_id);
+
+                echo "<button type='submit' class='btn' name='like'>";
+                if(isset($likeExistence)){
+                  echo "<i class='fas fa-heart text-danger' id ='$post_id'></i>";
+                  echo "<span class='likes_count' id='likes_count_$post_id'zz>  $li_cnt </span>";
                 }else{
-                  echo "
-                  <button class='btn' type='submit' name='fav'>
-                  <i class='far fa-heart'></i>
-                  </button>
-                  ";
+                  echo "<i class='far fa-heart' id ='$post_id'></i>";
                 }
+                echo "</button>"
               ?>
             </form>
           </div>
-    
         </div>
-        <!-- END OF CARD -->
-
-
         <?php
-          // for($i = 0; $i < $post_count; $i++){
-          //   $post_details = $post->getDatedPosts($login_id, $date);
-            
-          //   echo "<div class='card mt-4'>";
-          //   if($post_details[$i]['subject_name'] == "HTML"){
-          //     echo "<div class='card-header bg-danger text-white'>
-          //     <div class='row'>
-          //       <div class='col-md-6 text-left'>
-          //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
-          //       </div>
-          //       <div class='col-md-6 text-right'>
-          //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
-          //       </div>
-          //     </div> 
-          //   </div>";
-          //   }elseif($post_details[$i]['subject_name'] == "CSS"){
-          //     echo "<div class='card-header bg-primary text-white'>
-          //     <div class='row'>
-          //       <div class='col-md-6 text-left'>
-          //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
-          //       </div>
-          //       <div class='col-md-6 text-right'>
-          //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
-          //       </div>
-          //     </div> 
-          //   </div>";
-          //   }elseif($post_details[$i]['subject_name'] == "Javascript"){
-          //     echo "<div class='card-header bg-warning text-white'>
-          //     <div class='row'>
-          //       <div class='col-md-6 text-left'>
-          //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
-          //       </div>
-          //       <div class='col-md-6 text-right'>
-          //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
-          //       </div>
-          //     </div> 
-          //   </div>";
-          //   }elseif($post_details[$i]['subject_name'] == "PHP"){
-          //     echo "<div class='card-header bg-secondary text-white'>
-          //     <div class='row'>
-          //       <div class='col-md-6 text-left'>
-          //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
-          //       </div>
-          //       <div class='col-md-6 text-right'>
-          //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
-          //       </div>
-          //     </div> 
-          //   </div>";
-          //   }elseif($post_details[$i]['subject_name'] == "SQL"){
-          //     echo "<div class='card-header bg-info text-white'>
-          //     <div class='row'>
-          //       <div class='col-md-6 text-left'>
-          //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
-          //       </div>
-          //       <div class='col-md-6 text-right'>
-          //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
-          //       </div>
-          //     </div> 
-          //   </div>";
-          //   }elseif($post_details[$i]['subject_name'] == "English"){
-          //     echo "<div class='card-header bg-success text-white'>
-          //     <div class='row'>
-          //     <div class='col-md-6 text-left'>
-          //       <h5 class='text-white'>".$post_details[$i]['subject_name']."</h5>
-          //     </div>
-          //       <div class='col-md-6 text-right'>
-          //       <h5 class='text-white'>".$post_details[$i]['date']."</h5>
-          //       </div>
-          //     </div> 
-          //     </div>";
-          //   }
-          //   echo "<div class='card-body'>
-          //         ".$post_details[$i]['time_hour']."h".$post_details[$i]['time_minute']."min"
-          //         ."</div>
-          //         </div>"
-          //         ;
-          // }
         }
       ?>
     </div>
-    <div class="col-md-3">
-    <div class="container">
+    <div class="pc col-md-3">
     <div class="card w-75 mx-auto">
-      <!-- <div class="card-header">
-        
-      </div> -->
       <div class="card-body">
         <div class="row">
           <div class="col-md-4">
@@ -438,49 +347,33 @@ include "../todoAction.php";
           <div class="col-md-8">
             <p>
               <a href="profileEdit.php" class="text-black">
-                <strong style="font-size:30px;"><?php echo $user_detail["name"] ?></strong>
+                <strong style="font-size:30px;"><?php echo $user_detail["name"] ?>&nbsp; </strong>
+              </a>
+              <a href="profileEdit.php" class="text-black">
+                <i class="fas fa-cog mute" style="color:grey;"></i>
               </a>
             </p>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
-            <p class="pb-1 mb-2 border-bottom">Your goal: </p>
+            <p class="pb-1 mb-2 border-bottom">目標: </p>
             <p>
               <?php echo $user_detail["bio"] ?>
             </p>
           </div>
-        </div>
       </div>
     </div>
   </div>
     </div>
   </div>
 
+<?php
+include "footer.php";
+?>
 
-  <!-- JavaScript -->
-  <div id="fb-root"></div>
-  <script>
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=1662270373824826";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+<style>
+  .accordion_todo{
 
-  </script>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-    crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="js/shards.min.js"></script>
-  <script src="js/demo.min.js"></script>
-
-</body>
-
-</html>
+  }
+</style>

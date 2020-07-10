@@ -31,16 +31,13 @@
   }elseif(isset($_POST['upload'])){
     $picture = $_FILES['pic']['name'];
     $login_id=$_SESSION["login_id"];
-    $target_dir = "upload/"; //folder in your computer where you will place the picture
+    $target_dir = "upload/"; 
     $target_file = $target_dir . basename($_FILES["pic"]["name"]);
 
     $ans = $user->insertToTable($picture,$login_id);
 
     if($ans == 1){
-        // Upload file
         move_uploaded_file($_FILES['pic']['tmp_name'],$target_file);
-        //move_uploaded_file ~~~ transfers the picture from one location
-        // to another location
         header("Location:views/profileEdit.php");
     }else{
         echo "Error";
@@ -54,10 +51,7 @@
     $ans = $user->editPicture($new_picture,$login_id);
 
     if($ans == 1){
-      // Upload file
       move_uploaded_file($_FILES['new_pic']['tmp_name'],$target_file);
-      //move_uploaded_file ~~~ transfers the picture from one location
-      // to another location
       header("Location:views/profileEdit.php");
     }else{
       echo "Error";

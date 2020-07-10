@@ -9,8 +9,6 @@
     $todo_name =$_POST["todo_name"];
     $login_id= $_SESSION["login_id"];
 
-    // echo $name,$meaning,$example,$parts_of_speech,$login_id,$tag_id;
-    
     $todo->createTodo($todo_name,$login_id);
   }elseif(isset($_POST["updateTodo"])){
     

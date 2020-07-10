@@ -10,8 +10,6 @@
     $parts_of_speech=$_POST["parts_of_speech"];
     $login_id= $_SESSION["login_id"];
     $tag_id=$_POST["tag"];
-
-    // echo $name,$meaning,$example,$parts_of_speech,$login_id,$tag_id;
     
     $word->createWord($name,$meaning,$example,$parts_of_speech,$login_id,$tag_id);
   }elseif(isset($_POST["updateWord"])){

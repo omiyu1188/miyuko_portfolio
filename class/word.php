@@ -4,13 +4,8 @@
     public function createWord($name,$meaning,$example,$parts_of_speech,$login_id,$tag_id){
       $example=$this->conn->real_escape_string($example);
       $sql="INSERT INTO words(word_name,meaning,example,parts_of_speech,login_id,tag_id)VALUES('$name','$meaning','$example','$parts_of_speech','$login_id','$tag_id')";
-      // echo $sql;
 
       $result=$this->conn->query($sql);
-
-      // echo $sql;
-      // $secondSql="ISNULL(tag_id,)"
-      // ⬆︎タグを選択しなかった場合自動的に「その他」に入れるようにしたかった。
       if($result==false){
         die("cannot add word: ".$this->conn->error);
       }else{
@@ -76,37 +71,27 @@
       $sql="SELECT *, words.id AS word_id, tags.id AS tag_id FROM words INNER JOIN tags ON words.tag_id =tags.id  WHERE words.login_id='$login_id' AND tags.login_id='$login_id' AND tags.id='$specificTag_id'";
       $result=$this->conn->query($sql);
       $row=array();
-      // header("Location:views/wordbank.php");
-      // echo $sql;
-      // echo "<pre>";
-      // print_r($result);
-      // echo "</pre>";
-      // echo $result;
 
-      // if($result==false){
-      //   die ("no record found: ".$this->conn->error);
-      // }else{
-      //   return $result->fetch_assoc();
-      // }
-
-
-      // if($result->num_rows>0){
-      //   $row=array();
-      //   while($associative=$result->fetch_assoc()){
-      //     $row[]=$associative;
-      //   }
-      //   return $row;
-      // }else{
-      //   return False;
-      // }
-
-  
       if($result->num_rows>0){
         while($row=$result->fetch_assoc()){
           $rows[]=$row;
         }
         return $rows;
-        // header("Location:wordbank.php");
+      }else{
+        return false;
+      }
+    }
+
+    public function getPartsOfSpeechWords($login_id,$specific_parts_of_speech){
+      $sql="SELECT *, words.id AS word_id, tags.id AS tag_id FROM words INNER JOIN tags ON words.tag_id =tags.id  WHERE words.login_id='$login_id' AND tags.login_id='$login_id' AND words.parts_of_speech='$specific_parts_of_speech'";
+      $result=$this->conn->query($sql);
+      $row=array();
+
+      if($result->num_rows>0){
+        while($row=$result->fetch_assoc()){
+          $rows[]=$row;
+        }
+        return $rows;
       }else{
         return false;
       }

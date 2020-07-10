@@ -74,7 +74,6 @@
       $sql= "UPDATE users SET picture = '$picture' WHERE login_id = '$login_id'";
 
       if($this->conn->query($sql)){
-          //successful in inserting the picture
           return 1;
       }else{
           echo "Not saved " .$this->conn->error;
@@ -131,16 +130,6 @@
         header("Location:views/passwordEdit.php");
       }
     }
-    // public function deleteUser($user_id){
-    //   $sql="DELETE from users WHERE user_id='$user_id'";
-    //   $result = $this->conn->query($sql);
-    //   if($result == false){
-    //     die ("Cannot Delete: ".$this->conn->error);
-    //   }else{
-    //     header("Location:dashboard.php");
-    //   }
-    // }
-
 
   }
 ?>

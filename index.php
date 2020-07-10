@@ -11,13 +11,18 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/shards.min.css?v=3.0.0">
   <link rel="stylesheet" href="css/shards-demo.min.css?v=3.0.0">
+  <script src="https://kit.fontawesome.com/b919d7d2ee.js" crossorigin="anonymous"></script>
 </head>
 <body class="" style="background-image:url(image/index-background.png);">
 
         <nav class="navbar navbar-expand-lg navbar-light mb-4" style="background-color:rgba(0,0,0,0);">
           <div class="navbar-nav mr-auto">
-              <img src="images/demo/shards-logo-black.svg" alt="Example Navbar 1" class="" height="40">
-              <a role="button" class="navbar-brand btn" href="#" style="font-size:24px;">Sample</a>
+          <a href="#" class="btn p-3 btn-white text-primary">
+            <strong>
+                <i class="fas fa-book-reader"></i>
+                Study Support
+            </strong>
+            </a>
           </div>
 
             <ul class="navbar-nav">

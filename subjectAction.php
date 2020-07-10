@@ -8,8 +8,6 @@
   if(isset($_POST["addSubject"])){
     $subject_name =$_POST["subject_name"];
     $login_id= $_SESSION["login_id"];
-
-    // echo $name,$meaning,$example,$parts_of_speech,$login_id,$tag_id;
     
     $subject->createSubject($subject_name,$login_id);
   }elseif(isset($_POST["updateSubject"])){

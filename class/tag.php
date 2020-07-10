@@ -30,7 +30,6 @@
     public function getSpecificTag($id,$login_id){
       $sql="SELECT * FROM tags WHERE id='$id' AND login_id='$login_id'";
 
-      // echo $sql;
       $result=$this->conn->query($sql);
       if($result==false){
         die ("no record found: ".$this->conn->error);
@@ -39,7 +38,6 @@
           $rows[]=$row;
       }
       return $rows;
-      // return $result->fetch_assoc();
     }
   }
 
@@ -67,7 +65,6 @@
         header("Location:tag.php");
       }
     }
-
 
   }
 ?>

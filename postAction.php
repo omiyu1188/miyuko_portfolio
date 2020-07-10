@@ -13,7 +13,6 @@
     $login_id= $_SESSION["login_id"];
     $count=$_POST["count"];
 
-    // print_r($subject_id);
     $post->createPost($subject_id,$hour,$minute,$comment,$date,$login_id,$count);
   }elseif(isset($_POST["updatePost"])){
     
@@ -26,8 +25,21 @@
     $new_tag_id=$_POST["new_tag_id"];
     
     $post->editPost($post_id,$new_name,$new_meaning,$new_example,$new_parts_of_speech,$login_id,$new_tag_id);
-  }elseif(isset($_POST["fav"])){
-    
+  }elseif(isset($_POST["like"])){
+    $post_id=$_POST["post_id"];
+    $login_id=$_SESSION["login_id"];
+    $likeExistence=$post->likeExistence($post_id,$login_id);
+    if(is_array($array)){
+      foreach((array)$likeExistence as $data){
+        $li_ex=$data["cnt"];
+      }
+    }
+    if(isset($likeExistence)){
+      $post->deleteLike($post_id,$login_id);
+    }else{
+      $post->likePost($post_id,$login_id);
+    }
+
   }
 
 

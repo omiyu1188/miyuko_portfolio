@@ -4,12 +4,8 @@
     public function createSubject($subject_name,$login_id){
       $subject_name=$this->conn->real_escape_string($subject_name);
       $sql="INSERT INTO subjects(subject_name,login_id)VALUES('$subject_name','$login_id')";
-      // echo $sql;
-
       $result=$this->conn->query($sql);
 
-      // echo $sql;
-      
       if($result==false){
         die("cannot add task: ".$this->conn->error);
       }else{
@@ -65,11 +61,6 @@
         header("Location:subject.php");
       }
     }
-
-
-
+    
   }
-
-
-
 ?>

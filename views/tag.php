@@ -7,23 +7,24 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Tags</title>
+  <title>カテゴリー</title>
   <meta name="description" content="A free and modern UI toolkit for web makers based on the popular Bootstrap 4 framework.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../css/shards.min.css?v=3.0.0">
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
+  <script src="https://kit.fontawesome.com/b919d7d2ee.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<?php
+  <?php
     include "header.php";
   ?>
   <div class="container">
-    <div class="container">
-
+    <div class="container p-0">
+      <a href="wordbank.php" class="btn btn-outline-secondary"> < Wordbankに戻る</a>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-4">
       <div class="col-6">
         <table class="table table-striped table-bordered">
           <thead class="bg-dark text-white">
@@ -46,9 +47,9 @@
                   <td>".$tag['tag_name']."</td>
                   <td>
                  
-                  <a href='tagEdit.php?id=$tagID' role='button' name='editTag' class='btn btn-outline-warning mr-3'>Edit</a>
+                  <a href='tagEdit.php?id=$tagID' role='button' name='editTag' class='btn btn-outline-warning mr-3'>編集</a>
   
-                  <a href='tagDelete.php?id=$tagID' role='button' name='delete' class='btn btn-outline-danger'>Delete</a></td>
+                  <a href='tagDelete.php?id=$tagID' role='button' name='delete' class='btn btn-outline-danger'>消去</a></td>
                   </tr>
                   ";
                 }
@@ -61,51 +62,28 @@
         <div class="card mx-auto border border-0">
           <div class="card-header bg-white text-dark border-0">
             <h2 class="text-center pt-5">
-              ADD TAGS
+              カテゴリー登録
             </h2>
           </div>
-          <div class="card-body">
-                  <form action="" method="post">
-                  <div class="form-row">
-                    <div class="form-group col-md-12 mt-3">
-                      <input type="text" class="p-3 form-control" placeholder="TYPE NEW TAG" name="name" required>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col-md-12 mt-3">
-                      <button type="submit" class="btn btn-outline-danger p-3 form-control"  name="addTag" required>ADD NEW TAG</button>
-                    </div>
-                  </div>
-                  </form>
+          <div class="card-body pt-0">
+            <form action="" method="post">
+              <div class="form-row">
+                <div class="form-group col-md-12 mt-3">
+                <label for="">（例）日常会話、イディオム、ビジネス英語等</label>
+                  <input type="text" class="p-3 form-control" placeholder="追加するカテゴリーを入力してください。" name="name" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12 mt-3">
+                  <button type="submit" class="btn btn-outline-danger p-3 form-control"  name="addTag" required>登録</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- JavaScript -->
-  <div id="fb-root"></div>
-  <script>
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=1662270373824826";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-  </script>
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-    crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="js/shards.min.js"></script>
-  <script src="js/demo.min.js"></script>
-
-</body>
-
-</html>
+  <?php
+  include "footer.php";
+  ?>

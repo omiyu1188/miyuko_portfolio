@@ -17,14 +17,14 @@
         <div class="card mx-auto w-50 my-5 border border-0">
           <div class="card-header bg-white text-dark border-0">
             <h2 class="text-center mt-5">
-              LOGIN
+             ログイン
             </h2>
           </div>
           <div class="card-body">
             <form action="../userAction.php" method="post">
               <div class="form-row">
                 <div class="form-group col-md-12">
-                  <label for="">Email</label>
+                  <label for="">メールアドレス</label>
                   <div class="input-group">
                     <span class="input-group-prepend">
                       <span class="input-group-text">
@@ -37,7 +37,7 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-12">
-                  <label for="">Password</label>
+                  <label for="">パスワード</label>
                   <div class="input-group">
                     <span class="input-group-prepend">
                       <span class="input-group-text">
@@ -51,7 +51,7 @@
               <div class="form-row mt-3">
                 <div class="form-group col-md-12">
                   <div class="input-group">
-                     <button type="submit" name="login" class="form-control btn btn-info form-control text-uppercase">LOGIN</button>
+                     <button type="submit" name="login" class="form-control btn btn-info form-control text-uppercase">ログイン</button>
                   </div>
                 </div>
               </div>
@@ -89,8 +89,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
     crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="js/shards.min.js"></script>
-  <script src="js/demo.min.js"></script>
+  <script src="../js/shards.min.js"></script>
+  <script src="../js/demo.min.js"></script>
 
 </body>
 

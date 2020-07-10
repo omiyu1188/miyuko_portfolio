@@ -4,11 +4,7 @@
     public function createTodo($todo_name,$login_id){
       $todo_name=$this->conn->real_escape_string($todo_name);
       $sql="INSERT INTO todo(todo_name,login_id)VALUES('$todo_name','$login_id')";
-      // echo $sql;
-
       $result=$this->conn->query($sql);
-
-      // echo $sql;
       
       if($result==false){
         die("cannot add task: ".$this->conn->error);
@@ -68,10 +64,5 @@
       }
     }
 
-
-
   }
-
-
-
 ?>

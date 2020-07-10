@@ -11,20 +11,21 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="../css/shards.min.css?v=3.0.0">
   <link rel="stylesheet" href="../css/shards-demo.min.css?v=3.0.0">
+  <script src="https://kit.fontawesome.com/b919d7d2ee.js" crossorigin="anonymous"></script>
 </head>
 <body class="bg-light" style="background-image:url(../image/index-background.png);">
 <div class="container">
         <div class="card mx-auto w-50 my-5 border border-0">
           <div class="card-header bg-white text-dark border-0">
             <h2 class="text-center mt-5">
-              SIGN UP
+              会員登録
             </h2>
           </div>
           <div class="card-body">
             <form action="../userAction.php" method="post">
               <div class="form-row">
                 <div class="form-group col-md-12">
-                  <label for="">Username</label>
+                  <label for="">ユーザーネーム</label>
                   <div class="input-group">
                     <span class="input-group-prepend">
                       <span class="input-group-text">
@@ -37,46 +38,36 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="">Gender</label>
+                  <label for="">性別</label>
                   <div class="input-group">
-                    <!-- <span class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fa fa-lock"></i>
-                      </span>
-                    </span> -->
+
                     <select name="gender" id="" class="form-control"required>
-                      <!-- <option value="" disabled>Select your gender</option> -->
-                      <option hidden>CHOOSE YOUR GENDER</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="others">Others</option>
+                      <option hidden>性別を選択してください</option>
+                      <option value="男性">男性</option>
+                      <option value="女性">女性</option>
+                      <option value="その他">その他</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="">Status</label>
+                  <label for="">学年</label>
                   <div class="input-group">
-                    <!-- <span class="input-group-prepend"> -->
-                      <!-- <span class="input-group-text"> -->
-                        <!-- <i class="fa fa-lock"></i> -->
-                      <!-- </span> -->
-                    <!-- </span> -->
-                    <select name="status" id="" class="form-control"required>
-                      <option hidden>CHOOSE YOUR STATUS</option>
-                      <option value="junior">Junior High School Student</option>
-                      <option value="high">High School Student</option>
-                      <option value="university">University Student</option>
-                      <option value="students">Student of other school</option>
-                      <option value="worker">Worker</option>
-                      <option value="others">None of the above</option>
-                      <option value="secret">Secret</option>
+                    <select name="学年" id="" class="form-control"required>
+                      <option hidden>学年を選択してください</option>
+                      <option value="中学生">中学生</option>
+                      <option value="高校生">高校生</option>
+                      <option value="大学生">大学生</option>
+                      <option value="他の学校">他の学校</option>
+                      <option value="社会人">社会人</option>
+                      <option value="その他">その他</option>
+                      <option value="秘密">秘密</option>
                     </select>
                   </div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-12">
-                  <label for="">Email</label>
+                  <label for="">メールアドレス</label>
                   <div class="input-group">
                     <span class="input-group-prepend">
                       <span class="input-group-text">
@@ -89,7 +80,7 @@
               </div>
               <div class="form-row">
                 <div class="form-group col-md-12">
-                  <label for="">Password</label>
+                  <label for="">パスワード</label>
                   <div class="input-group">
                     <span class="input-group-prepend">
                       <span class="input-group-text">
@@ -103,7 +94,7 @@
               <div class="form-row mt-3">
                 <div class="form-group col-md-12">
                   <div class="input-group">
-                     <button type="submit" name="signup" class="form-control btn btn-danger form-control text-uppercase">SIGN UP</button>
+                     <button type="submit" name="signup" class="form-control btn btn-danger form-control text-uppercase">登録する</button>
                   </div>
                 </div>
               </div>
@@ -140,8 +131,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
     crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  <script src="js/shards.min.js"></script>
-  <script src="js/demo.min.js"></script>
+  <script src="../js/shards.min.js"></script>
+  <script src="../js/demo.min.js"></script>
 
 </body>
 

@@ -146,7 +146,56 @@
         header("Location:home.php");
       }
     }
+    
+    public function likePost($post_id,$login_id){
+      $sql="INSERT INTO posts_like
+     (posts_like.post_id,posts_like.user_id)VALUES('$post_id','$login_id')";
 
+      $result=$this->conn->query($sql);
+      if($result==false){
+        die ("cannot update ".$this->conn->error);
+      }else{
+        header("location: home.php");
+      }
+    }
+
+    public function likeCount($post_id){
+      $sql="SELECT COUNT(post_id) AS li_cnt FROM posts_like  WHERE post_id = $post_id GROUP BY post_id";
+
+    $result=$this->conn->query($sql);
+      
+      $dates = array();
+      if($result->num_rows>0){
+        while($date=$result->fetch_assoc()){
+          $dates[]=$date;
+        }
+        return $dates;
+      }
+    }
+
+    public function likeExistence($post_id,$login_id){
+      $sql="SELECT COUNT(*) AS cnt FROM posts_like  WHERE post_id = $post_id AND user_id=$login_id GROUP BY post_id";
+
+    $result=$this->conn->query($sql);
+      
+      $dates = array();
+      if($result->num_rows>0){
+        while($date=$result->fetch_assoc()){
+          $dates[]=$date;
+        }
+        return $dates;
+      }
+    }
+
+    public function deleteLike($post_id,$login_id){
+      $sql="DELETE from posts_like WHERE post_id='$post_id' AND user_id='$login_id'";
+      $result = $this->conn->query($sql);
+      if($result == false){
+        die ("Cannot Delete: ".$this->conn->error);
+      }else{
+        header("Location:home.php");
+      }
+    }
 
   }
 
