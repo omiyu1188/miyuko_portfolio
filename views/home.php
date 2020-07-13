@@ -24,8 +24,8 @@ include "../todoAction.php";
     include ("header.php");
   ?>
   <div class="row my-5">
-    <div class="pc col-md-3" >
-      <div class="card mx-auto w-75 p-1 overflow-auto"style="height:650px;">
+    <div class="pc col-md-3 overflow-auto"style="height:650px;" >
+      <div class="card mx-auto w-75 p-1">
         <div class="card-body">
           <h3 class="text-center">TODO LISTS</h3><br>
           <div class="row">
